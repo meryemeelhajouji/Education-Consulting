@@ -1,15 +1,41 @@
 const dotenv = require("dotenv");
 const User = require("../models/User");
 const Role = require("../models/Role");
-const bcrypt=require('bcryptjs')
-const jwt = require('jsonwebtoken');
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const local_storage = require("local-storage");
 const { restart } = require("nodemon");
 
 // method  : post
 // url     : api/auth/login
 // acces   : Public
 const login = async (req, res) => {
-  res.send("hello meryeme ");
+    if(!req.body.email || !req.body.password){
+        res.status(400).send(" please enter email or name or password ")            
+    }
+    const {body} = req
+    User.findOne({email:body.email}).populate({path:'roleid',model:Role}).then((e)=>{
+        const user= e
+        if(e){
+            bcrypt.compare(body.password,e.password).then((e)=>{
+                if(e){
+                    if(user.status=="valid"){
+                        const token = jwt.sign({user},process.env.SECRET,{expiresIn:'120m'})
+                    local_storage('token',token)
+                    res.json({token:local_storage('token'),role:user.roleid.type,name:user.name})                           
+                    }else{
+                        res.status(401).send('please verify your email')
+                    }                                  
+                }else{
+                    res.status(401).send('passsord invalid // unauthorized')
+                }           
+            }) .catch(()=>{
+                res.send('not hashed')
+            })     
+        }else{
+            res.status(404).send('user not found')    
+        }
+    })
 };
 
 // method : post
@@ -17,62 +43,60 @@ const login = async (req, res) => {
 // acces : Public
 const register = async (req, res) => {
   
-    const { email, password } = req.body;
 
- 
-  // check if admin exists
-  const user = await User.findOne({ email });
-  if (!user) {
-  res.status(400).send("email déja existe");
-  }
-   
-  // check if role exists
-  const role = await Role.findOne({ email });
-  if (role) {
-  res.status(400).send("role not found");
-  }
+if(!req.body.email || !req.body.name || !req.body.password){
+    res.status(400).send(" please enter email or name or password ")
+}
+if( req.body.password !=  req.body.password2){
+    res.status(400).send(" password not match")
+}
 
-   // check if password matches
-   const isMatch = await bcrypt.compare(password, user.password);
-   if (!isMatch) {
-     let error = new Error('Invalid credentials');
-     error.status = 400;
-     throw error;
-   }
-//   const { body } = req;
-//   User.findOne({ email: body.email }).then((e) => {
-//     // console.log('user=> '+e)
-//     if (!e) {
-//       Role.findOne({ type: body.role }).then((myRole) => {
-//         if (myRole) {
-//           // console.log(myRole)
-//           body.roleid = myRole._id;
-//           const token = jwt.sign({ id: User._id }, process.env.SECRET);
-//           body.token = token;
-//           bcrypt
-//             .hash(body.password, 10)
-//             .then((hashPassword) => {
-//               body.password = hashPassword;
 
-//               User.create({ ...body })
-//                 .then(() => {
-//                   res.status(201).send("created");
-//                 })
-//                 .catch(() => {
-//                   res.status(400).send("not created // something woring ");
-//                 });
-//             })
-//             .catch(() => {
-//               res.send("error in hash");
-//             });
-//         } else {
-//           res.status(400).send("can not create //role not existe");
-//         }
-//       });
-//     } else {
-//       res.status(400).send("can not create // email déja existe");
-//     }
-//   });
+    const {body} = req
+    User.findOne({email:body.email}).then((e)=>{
+        // console.log('user=> '+e)
+                if(!e){
+                    Role.findOne({type:body.role}).then((myRole)=>{
+                        if(myRole){
+                            // console.log(myRole)
+                            body.roleid = myRole._id
+                    const token=jwt.sign({id: User._id},process.env.SECRET)
+                    body.token  = token
+                     bcrypt.hash(body.password,10).then((hashPassword)=>{
+                        body.password  = hashPassword
+
+                        const mailOptions = {
+                            from: 'meryemelhajouji.99@gmail.com', // sender address
+                            to:  body.email , // list of receivers
+                            subject: 'Verify your email', 
+                            html: `<h1>Hello ${body.name}</h1>
+                            <p> Click for lien for reset your password </p>
+                            <a href="http://localhost:${process.env.PORT_CLIENT}/VerifyEmail/${body.token}">verify your email </a> `//plain ,text body
+                          };
+                            User.create({...body}).then(()=>{
+                                res.status(201).send('created')
+                                transporter.sendMail(mailOptions, function (err, info) {
+                                    if(err)
+                                      res.send(err)
+                                    else
+                                    res.json({message : "verification email is send to your email account"})
+                                 });
+                            }).catch(()=>{
+                                res.status(400).send('not created // something woring ')
+                            })
+                     }).catch(()=>{
+                      res.send('error in hash')
+
+                     })
+                    }else{
+                        res.status(400).send('can not create //role not existe')
+                    }
+                        })
+                }else{
+                    res.status(400).send('can not create // email déja existe')
+                }
+                    })
+                
 };
 module.exports = {
   login,
