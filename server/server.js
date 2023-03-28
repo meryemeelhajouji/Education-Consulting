@@ -8,20 +8,22 @@ app.use(express.json())
 
 //router
 const routerAuth = require('./Routes/authRoute')
-
+const routerclient = require('./Routes/clientRoute')
+const routerLivreure = require('./Routes/livreureRoute')
 
 //Middleware
-// const {errorHandler}= require('./Middlewares/errorMiddleware')
+const {errorHandler}= require('./Middlewares/errorMiddleware')
+const {routeErrorHandler}= require('./Middlewares/routerMiddlware')
+
 
 //router
 app.use('/api/auth',routerAuth)
-
-
+app.use('/api/user',routerclient)
+app.use('/api/user',routerLivreure)
 
 //Middleware
-// app.use(errorHandler)
-
-
+app.use(errorHandler)
+app.use(routeErrorHandler)
 
 
 const port = process.env.PORT || 8081
