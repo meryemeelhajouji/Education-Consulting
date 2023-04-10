@@ -83,7 +83,7 @@ if( req.body.password !=  req.body.password2){
 
     const {body} = req
     User.findOne({email:body.email}).then((e)=>{
-        // console.log('user=> '+e)
+        console.log('user=> '+e)
                 if(!e){
                     Role.findOne({type:body.role}).then((myRole)=>{
                         if(myRole){
