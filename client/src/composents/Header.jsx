@@ -17,7 +17,7 @@ function Header(){
     return(
         <Navbar bg="light" expand="lg">
         <Container>
-          <Navbar.Brand href="/">Delivery App</Navbar.Brand>
+          <Navbar.Brand href="/"> \_|_/ Education-Consulting</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
             {/* <Nav className="me-auto">
               <Nav.Link href="#home"></Nav.Link>
