@@ -22,9 +22,9 @@ function Sidebar(props) {
           {" "}
           <i className="bi bi-house fs-5 me-3"></i> <span>Home</span>{" "}
         </a>{" "}
-        <a className="list-group-item py-2">
+        <a className="list-group-item py-2" href="/Etudiant">
           {" "}
-          <i className="bi bi-table fs-5 me-3"></i> <span>Products</span>{" "}
+          <i className="bi bi-table fs-5 me-3"></i> <span>Etudiant</span>{" "}
         </a>{" "}
         <a className="list-group-item py-2">
           {" "}

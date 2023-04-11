@@ -12,6 +12,8 @@ import Profile from "./composents/Profile";
 import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import Header from "./composents/Header";
 import ProtectRoute from "./Utils/ProtectRoute"
+import Etudiant from "./pages/etudiant/Etudiant"
+
 
 
 function App() {
@@ -33,6 +35,8 @@ function App() {
    {/* private routes */}
    <Route  element={<ProtectRoute/>}>
     <Route path="/Dashboard" element={<Dashboard/>} />
+    <Route path="/Etudiant" element={<Etudiant/>} />
+
     <Route path="/profile" element={<Profile/>} />
    </Route>
 
