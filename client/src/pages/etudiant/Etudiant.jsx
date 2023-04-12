@@ -58,7 +58,7 @@ function Etudiant() {
                   type="submit"
                 >
                   {" "}
-                  + add{" "}
+                  + New Etudiant{" "}
                 </button>
               </div>
             </nav>
@@ -67,29 +67,33 @@ function Etudiant() {
                 <thead>
                   <tr className="table-secondary">
                     <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Handle</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">phone</th>
+                    <th scope="col">status</th>
+                    <th scope="col">Action</th>
+
+
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
                     <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
+                    <td>sara</td>
+                    <td>sara@gmail.com</td>
+                    <td>@0734526173</td>
+                    <td>invalide</td>
+                    <td>voir</td>
                   </tr>
                   <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
+                  <th scope="row">2</th>
+                    <td>mery</td>
+                    <td>mery.ed@gmail.com</td>
+                    <td>@0734526173</td>
+                    <td>valide</td>
+                    <td>voir</td>
                   </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
-                    <td>@twitter</td>
-                  </tr>
+                
                 </tbody>
               </table>
             </div>

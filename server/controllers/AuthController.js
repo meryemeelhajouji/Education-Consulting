@@ -89,7 +89,7 @@ const register = (req, res) => {
   User.findOne({ email: body.email }).then((e) => {
     // console.log('user=> '+e)
     if (!e) {
-      Role.findOne({ type: "etudiant" }).then((myRole) => {
+      Role.findOne({ type: body.role}).then((myRole) => {
       
           // console.log(body.email)
           body.roleid = myRole._id;

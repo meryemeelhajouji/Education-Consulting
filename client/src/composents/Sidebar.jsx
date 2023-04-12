@@ -10,8 +10,10 @@ function Sidebar(props) {
           {props.name} : {props.role}{" "}
         </div>
       </div>
-      <hr className="text-dark" />{" "}
+      <hr className="text-dark  border border-primary border-3 " />{" "}
+
       {props.role == "admin" ? (
+
         <div className="list-group list-group-flush">
           {" "}
           <a className="list-group-item py-2">
