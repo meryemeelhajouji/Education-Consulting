@@ -15,7 +15,7 @@ function Dashboard() {
   const role = localStorage.getItem("role");
   // console.log(role);
   axios.get(`http://localhost:5000/api/user/${role}/me`).then((resp) => {
-    console.log(user)
+    // console.log(user)
     setuser(resp.data);
   });
 
@@ -27,8 +27,7 @@ function Dashboard() {
         {toggle && (
           <div className="col-4 col-md-2 bg-white vh-100 position-fixed">
             {" "}
-            <Sidebar data={user} />{" "}
-            
+            <Sidebar key={user.id} name={user.name}  role={user.role} />{" "}
           </div>
         )}{" "}
         {toggle && <div className="col-4 col-md-2"></div>}{" "}

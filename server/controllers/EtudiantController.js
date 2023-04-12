@@ -1,9 +1,13 @@
 // method : get
 // url : api/user/etudiant/me
 // acces : private
-const getUserEtudiant =  (req,res) => {
-    res.status(201).send("bonjour "+req.user.user.name + " : Etudiant")
-}
+
+const getUserEtudiant = (req, res) => {
+  res.json({
+    role: "etudiant",
+    name: req.user.user.name,
+  });
+};
 module.exports = {
-    getUserEtudiant
-}
+  getUserEtudiant,
+};

@@ -3,7 +3,10 @@
 // url : api/user/Livreure/me
 // acces : private
 const getUserAdmin =  (req,res) => {
-    res.json("bonjour "+req.user.user.name + " :  Admin")
+    res.json({
+        role: "admin",
+        name: req.user.user.name ,
+      });
 
 }
 module.exports = {
