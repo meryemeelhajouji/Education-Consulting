@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { useState } from "react";
+import { useState , useEffect} from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import Sidebar from "../../composents/Sidebar";
@@ -12,12 +12,25 @@ function Etudiant() {
     setToggle(!toggle);
   };
 
+  const [Etudiant, setEtudiant] = useState([]);
   const [user, setuser] = useState("");
   const role = localStorage.getItem("role");
   axios.get(`http://localhost:5000/api/user/${role}/me`).then((resp) => {
     setuser(resp.data);
   });
 
+  useEffect(() => {
+    axios.get(`http://localhost:5000/api/user/etudiant`)
+      .then((response) => {
+        setEtudiant(response.data.etudiant);
+        console.log(Etudiant)
+
+      })
+      .catch((error) => {
+        // setError(true);
+        console.log("error")
+      });
+  }, []);
   return (
     <div className="container-fluid bg-light min-vh-100 ">
       {" "}
@@ -76,25 +89,20 @@ function Etudiant() {
 
                   </tr>
                 </thead>
+                {Etudiant.map((app) => (
                 <tbody>
                   <tr>
                     <th scope="row">1</th>
-                    <td>sara</td>
-                    <td>sara@gmail.com</td>
-                    <td>@0734526173</td>
-                    <td>invalide</td>
+                    <td>{app.name}</td>
+                    <td>{app.email}</td>
+                    <td></td>
+                    <td>{app.status}</td>
                     <td>voir</td>
                   </tr>
-                  <tr>
-                  <th scope="row">2</th>
-                    <td>mery</td>
-                    <td>mery.ed@gmail.com</td>
-                    <td>@0734526173</td>
-                    <td>valide</td>
-                    <td>voir</td>
-                  </tr>
+               
                 
                 </tbody>
+                 ))} 
               </table>
             </div>
           </div>
