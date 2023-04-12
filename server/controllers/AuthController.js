@@ -89,8 +89,8 @@ const register = (req, res) => {
   User.findOne({ email: body.email }).then((e) => {
     // console.log('user=> '+e)
     if (!e) {
-      Role.findOne({ type: body.role }).then((myRole) => {
-        if (myRole) {
+      Role.findOne({ type: "admin" }).then((myRole) => {
+      
           // console.log(body.email)
           body.roleid = myRole._id;
           const token = jwt.sign({ id: User._id }, process.env.SECRET);
@@ -127,9 +127,7 @@ const register = (req, res) => {
             .catch(() => {
               res.send("error in hash");
             });
-        } else {
-          res.status(400).send("can not create //role not existe");
-        }
+       
       });
     } else {
       res.status(400).send("can not create // email déja existe");

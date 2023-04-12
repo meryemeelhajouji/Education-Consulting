@@ -1,5 +1,5 @@
 require('dotenv').config()
-const mongoos = require('./Config/config')
+const mongoos = require('./config/Config')
 const express = require('express')
 const cors = require('cors');
 const app = express()
@@ -8,8 +8,8 @@ app.use(express.json())
 
 //router
 const routerAuth = require('./Routes/authRoute')
-const routerclient = require('./Routes/clientRoute')
-const routerLivreure = require('./Routes/livreureRoute')
+const routerEtudaint = require('./routes/EtudiantRoute')
+const routerAdmin = require('./routes/AdminRoute')
 
 //Middleware
 const {errorHandler}= require('./Middlewares/errorMiddleware')
@@ -18,8 +18,8 @@ const {routeErrorHandler}= require('./Middlewares/routerMiddlware')
 
 //router
 app.use('/api/auth',routerAuth)
-app.use('/api/user',routerclient)
-app.use('/api/user',routerLivreure)
+app.use('/api/user',routerEtudaint)
+app.use('/api/user',routerAdmin)
 
 //Middleware
 app.use(errorHandler)

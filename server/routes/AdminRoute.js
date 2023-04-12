@@ -2,10 +2,9 @@ const express = require('express')
 const router = express.Router()
 const {verify} = require('../Middlewares/verification ')
 
+const {getUserAdmin} = require('../controllers/AdminController')
 
-const {getUserClient} = require('../Controllers/clientController')
-
-router.get("/client/me",verify(['Client']) ,getUserClient)
+router.get("/admin/me",verify(['admin']), getUserAdmin)
 
 
 module.exports = router

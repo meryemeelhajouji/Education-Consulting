@@ -96,19 +96,7 @@ function Register() {
                   onChange={onchange}
                 />
               </div>
-              <div className="form-group mt-3">
-                <label>Votre Role </label>
-                <select
-                  className="form-control mt-1"
-                  placeholder="Enter your password"
-                  name="role"
-                  id="role"
-                  onChange={onchange}
-                >
-                  <option value="Client">Client</option>
-                  <option value="Livreure">Livereur</option>
-                </select>
-              </div>
+            
               <div className="form-group d-grid gap-2 mt-3">
                 <button type="submit" className="btn btn-dark">
                   Submit
