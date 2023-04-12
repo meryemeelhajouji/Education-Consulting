@@ -20,7 +20,7 @@ function Dashboard() {
   });
 
   return (
-    <div className="container-fluid bg-secondary min-vh-100 ">
+    <div className="container-fluid bg-light min-vh-100 ">
       {" "}
       <div className="row ">
         {" "}
