@@ -98,7 +98,7 @@ function Register() {
               </div>
             
               <div className="form-group d-grid gap-2 mt-3">
-                <button type="submit" className="btn btn-dark">
+                <button type="submit" className="btn btn-primary">
                   Submit
                 </button>
               </div>

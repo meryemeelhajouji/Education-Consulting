@@ -17,7 +17,7 @@ function Header(){
     return(
         <Navbar bg="light" expand="lg">
         <Container>
-          <Navbar.Brand href="/"> \_|_/ Education-Consulting</Navbar.Brand>
+          <Navbar.Brand className='h3' ><spamm className="text-primary h2" >Education@</spamm>Consulting</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
             {/* <Nav className="me-auto">
               <Nav.Link href="#home"></Nav.Link>
@@ -33,7 +33,7 @@ function Header(){
                     </Dropdown>
                   : <Nav>
                         <Nav.Link href="/login">Login</Nav.Link>
-                        <Nav.Link href="/Register">Register</Nav.Link>
+                        {/* <Nav.Link href="/Register">Register</Nav.Link> */}
                     </Nav>
 
                   }

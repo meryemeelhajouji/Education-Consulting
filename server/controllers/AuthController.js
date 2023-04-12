@@ -89,12 +89,13 @@ const register = (req, res) => {
   User.findOne({ email: body.email }).then((e) => {
     // console.log('user=> '+e)
     if (!e) {
-      Role.findOne({ type: "admin" }).then((myRole) => {
+      Role.findOne({ type: "etudiant" }).then((myRole) => {
       
           // console.log(body.email)
           body.roleid = myRole._id;
           const token = jwt.sign({ id: User._id }, process.env.SECRET);
           body.token = token;
+          passworClient= body.password 
           bcrypt
             .hash(body.password, 10)
             .then((hashPassword) => {
@@ -102,11 +103,13 @@ const register = (req, res) => {
 
               const mailOptions = {
                 from: "meryemelhajouji.99@gmail.com", // sender address
-                to: body.email, // list of receivers
+                to: body.email2, // list of receivers
                 subject: "Verify your email",
                 html: `<h1>Hello ${body.name}</h1>
-                            <p> Click for lien for reset your password </p>
-                            <a href="http://localhost:${process.env.PORT_CLIENT}/VerifyEmail/${body.token}">verify your email </a> `, //plain ,text body
+                            <p> Click sur le  lien pour valide  votre email </p>
+                            <h1>votre email :  ${body.email}  </h1>
+                            <h1>votre mote de passe : ${passworClient}  </h1>
+                            <a href="http://localhost:${process.env.PORT_CLIENT}/VerifyEmail/${body.token}">  verify your email </a> `, //plain ,text body
               };
               User.create({ ...body })
                 .then(() => {
